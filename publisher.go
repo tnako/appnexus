@@ -14,13 +14,14 @@ type PublisherService struct {
 
 // Publisher is an audience publisher within the AppNexus console
 type Publisher struct {
-	ID                int    `json:"id,omitempty"`
-	Code              string `json:"code,omitempty"`
-	State             string `json:"state,omitempty"`
-	Name              string `json:"name"`
-	IsOO              bool   `json:"is_oo,omitempty"`
-	ResellingExposure string `json:"reselling_exposure,omitempty"`
-	BasePaymentRuleID int    `json:"base_payment_rule_id,omitempty"`
+	ID                    int    `json:"id,omitempty"`
+	Code                  string `json:"code,omitempty"`
+	State                 string `json:"state,omitempty"`
+	Name                  string `json:"name"`
+	IsOO                  bool   `json:"is_oo,omitempty"`
+	ResellingExposure     string `json:"reselling_exposure,omitempty"`
+	BasePaymentRuleID     int    `json:"base_payment_rule_id,omitempty"`
+	InventoryRelationship int    `json:"inventory_relationship,omitempty"`
 }
 
 type publisherResponse struct {
