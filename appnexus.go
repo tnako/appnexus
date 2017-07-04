@@ -31,8 +31,9 @@ type Client struct {
 	credentials credentials
 	MemberID    int
 
-	Members  *MemberService
-	Segments *SegmentService
+	Members    *MemberService
+	Segments   *SegmentService
+	Publishers *PublisherService
 }
 
 // Rate contains information on the current rate limit in operation
@@ -88,11 +89,12 @@ func NewClient(endPointURL string) (*Client, error) {
 	c := &Client{
 		client:    httpClient,
 		EndPoint:  baseURL,
-		UserAgent: "github.com/adwww/appnexus go-appnexus-client",
+		UserAgent: "github.com/tnako/appnexus go-appnexus-client",
 	}
 
 	c.Members = &MemberService{client: c}
 	c.Segments = &SegmentService{client: c}
+	c.Publishers = &PublisherService{client: c}
 
 	return c, nil
 }
