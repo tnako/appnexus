@@ -11,6 +11,7 @@ Of the published [AppNexus API Services](https://wiki.appnexus.com/display/adnex
 * Auth API Service [Docs](https://wiki.appnexus.com/display/adnexusdocumentation/Auth+API+Service)
 * Member API Service [Docs](https://wiki.appnexus.com/display/adnexusdocumentation/Member+Service)
 * Segment Service [Docs](https://wiki.appnexus.com/display/adnexusdocumentation/Segment+Service)
+* Publisher Service [Docs](https://wiki.appnexus.com/display/api/Publisher+Service)
 
 Support for the remaining services should follow - pull requests welcome :)
 
