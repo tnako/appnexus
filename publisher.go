@@ -38,7 +38,7 @@ type publisherResponse struct {
 }
 
 // Get a publisher from the publisher service by ID
-func (s *PublisherService) Get(publisherID int) (*Publisher, error) {
+func (s *PublisherService) Get(publisherID int64) (*Publisher, error) {
 
 	path := fmt.Sprintf("publisher?id=%d", publisherID)
 	req, err := s.client.newRequest("GET", path, nil)
@@ -122,7 +122,7 @@ func (s *PublisherService) Update(item Publisher) (*Response, error) {
 }
 
 // Delete the specified publisher
-func (s *PublisherService) Delete(pubID int) error {
+func (s *PublisherService) Delete(pubID int64) error {
 	req, err := s.client.newRequest("DELETE", fmt.Sprintf("publisher?id=%d", pubID), nil)
 	if err != nil {
 		return err
