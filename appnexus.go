@@ -63,6 +63,7 @@ type Response struct {
 		Count            int       `json:"count,omitempty"`
 		StartElement     int       `json:"start_element,omitempty"`
 		NumElements      int       `json:"num_elements,omitempty"`
+		Publisher        Publisher `json:"publisher,omitempty"`
 		Member           Member    `json:"member,omitempty"`
 		Segments         []Segment `json:"segments,omitempty"`
 		Rate             Rate      `json:"dbg_info"`
