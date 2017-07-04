@@ -96,11 +96,11 @@ func (s *PublisherService) Add(item *Publisher) (*Response, error) {
 }
 
 // Update an existing publisher with new data
-func (s *PublisherService) Update(item Publisher) (*Response, error) {
+func (s *PublisherService) Update(item *Publisher) (*Response, error) {
 
 	data := struct {
 		Publisher `json:"publisher"`
-	}{item}
+	}{*item}
 
 	if item.ID < 1 {
 		return nil, errors.New("Update Publisher requires a publisher to have an ID already")

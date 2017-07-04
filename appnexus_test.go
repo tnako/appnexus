@@ -43,7 +43,7 @@ func TestNewClient(t *testing.T) {
 		t.Errorf("NewClient EndPoint is %v, expected %v", actual, expected)
 	}
 
-	if actual, expected := c.UserAgent, "github.com/adwww/appnexus go-appnexus-client"; actual != expected {
+	if actual, expected := c.UserAgent, "github.com/tnako/appnexus go-appnexus-client"; actual != expected {
 		t.Errorf("NewClient agent is %v, expected %v", actual, expected)
 	}
 }
