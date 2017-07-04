@@ -1,6 +1,7 @@
 package appnexus
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 )
@@ -54,13 +55,8 @@ func (s *PublisherService) Get(publisherID int) (*Publisher, error) {
 }
 
 // List available publishers from your AppNexus console
-func (s *PublisherService) List(opt *ListOptions) ([]Publisher, *Response, error) {
-	u, err := addOptions("publisher", opt)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	req, err := s.client.newRequest("GET", u, opt)
+func (s *PublisherService) List() ([]Publisher, *Response, error) {
+	req, err := s.client.newRequest("GET", "publisher", nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -98,47 +94,38 @@ func (s *PublisherService) Add(item *Publisher) (*Response, error) {
 }
 
 // Update an existing publisher with new data
-// func (s *PublisherService) Update(memberID int, item Publisher) (*Response, error) {
-//
-// 	data := struct {
-// 		Publisher `json:"publisher"`
-// 	}{item}
-//
-// 	if item.ID < 1 {
-// 		return nil, errors.New("Update Publisher requires a publisher to have an ID already")
-// 	}
-//
-// 	req, err := s.client.newRequest("PUT", fmt.Sprintf("publisher/%d?id=%d", memberID, item.ID), data)
-//
-// 	if err != nil {
-// 		return nil, err
-// 	}
-//
-// 	result := &Response{}
-// 	resp, err := s.client.do(req, result)
-// 	if err != nil {
-// 		return resp, err
-// 	}
-//
-// 	return result, nil
-// }
+func (s *PublisherService) Update(item Publisher) (*Response, error) {
+
+	data := struct {
+		Publisher `json:"publisher"`
+	}{item}
+
+	if item.ID < 1 {
+		return nil, errors.New("Update Publisher requires a publisher to have an ID already")
+	}
+
+	req, err := s.client.newRequest("PUT", fmt.Sprintf("publisher?id=%d", item.ID), data)
+
+	if err != nil {
+		return nil, err
+	}
+
+	result := &Response{}
+	resp, err := s.client.do(req, result)
+	if err != nil {
+		return resp, err
+	}
+
+	return result, nil
+}
 
 // Delete the specified publisher
-// func (s *PublisherService) Delete(memberID int, item Publisher) error {
-//
-// 	data := struct {
-// 		Publisher `json:"publisher"`
-// 	}{item}
-//
-// 	if item.ID < 1 {
-// 		return errors.New("Delete Publisher requires a publisher to have an ID already")
-// 	}
-//
-// 	req, err := s.client.newRequest("DELETE", fmt.Sprintf("publisher/%d", memberID), data)
-// 	if err != nil {
-// 		return err
-// 	}
-//
-// 	_, err = s.client.do(req, nil)
-// 	return err
-// }
+func (s *PublisherService) Delete(pubID int) error {
+	req, err := s.client.newRequest("DELETE", fmt.Sprintf("publisher?id=%d", pubID), nil)
+	if err != nil {
+		return err
+	}
+
+	_, err = s.client.do(req, nil)
+	return err
+}
