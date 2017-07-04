@@ -22,6 +22,7 @@ type Publisher struct {
 	ResellingExposure     string `json:"reselling_exposure,omitempty"`
 	BasePaymentRuleID     int    `json:"base_payment_rule_id,omitempty"`
 	InventoryRelationship string `json:"inventory_relationship,omitempty"`
+	InventorySource       string `json:"inventory_source,omitempty"`
 }
 
 type publisherResponse struct {
