@@ -51,22 +51,22 @@ type Rate struct {
 type Response struct {
 	*http.Response
 	Obj struct {
-		Status           string    `json:"status"`
-		ID               int       `json:"id,omitempty"`
-		ErrorID          string    `json:"error_id,omitempty"`
-		Error            string    `json:"error,omitempty"`
-		ErrorDescription string    `json:"error_description,omitempty"`
-		ErrorCode        string    `json:"error_code,omitempty"`
-		Token            string    `json:"token,omitempty"`
-		Service          string    `json:"service,omitempty"`
-		Method           string    `json:"method,omitempty"`
-		Count            int       `json:"count,omitempty"`
-		StartElement     int       `json:"start_element,omitempty"`
-		NumElements      int       `json:"num_elements,omitempty"`
-		Publisher        Publisher `json:"publisher,omitempty"`
-		Member           Member    `json:"member,omitempty"`
-		Segments         []Segment `json:"segments,omitempty"`
-		Rate             Rate      `json:"dbg_info"`
+		Status           string      `json:"status"`
+		ID               json.Number `json:"id,omitempty,Number"`
+		ErrorID          string      `json:"error_id,omitempty"`
+		Error            string      `json:"error,omitempty"`
+		ErrorDescription string      `json:"error_description,omitempty"`
+		ErrorCode        string      `json:"error_code,omitempty"`
+		Token            string      `json:"token,omitempty"`
+		Service          string      `json:"service,omitempty"`
+		Method           string      `json:"method,omitempty"`
+		Count            int         `json:"count,omitempty"`
+		StartElement     int         `json:"start_element,omitempty"`
+		NumElements      int         `json:"num_elements,omitempty"`
+		Publisher        Publisher   `json:"publisher,omitempty"`
+		Member           Member      `json:"member,omitempty"`
+		Segments         []Segment   `json:"segments,omitempty"`
+		Rate             Rate        `json:"dbg_info"`
 	} `json:"response"`
 }
 

@@ -14,7 +14,7 @@ type SegmentService struct {
 
 // Segment is an audience segment within the AppNexus console
 type Segment struct {
-	ID              int    `json:"id,omitempty"`
+	ID              int64  `json:"id,omitempty"`
 	Active          bool   `json:"active,omitempty"`
 	Code            string `json:"code,omitempty"`
 	State           string `json:"state,omitempty"`
@@ -100,7 +100,7 @@ func (s *SegmentService) Add(memberID int, item *Segment) (*Response, error) {
 		return resp, err
 	}
 
-	item.ID = result.Obj.ID
+	item.ID, _ = result.Obj.ID.Int64()
 	return result, nil
 }
 

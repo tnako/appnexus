@@ -96,7 +96,7 @@ func TestSegmentService_Add(t *testing.T) {
 	}
 
 	expected := Response{}
-	expected.Obj.ID = 4
+	expected.Obj.ID = "4"
 	expected.Obj.Status = "OK"
 
 	if expected.Obj.ID != actual.Obj.ID || actual.Obj.Status != "OK" {
