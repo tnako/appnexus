@@ -21,7 +21,7 @@ type Publisher struct {
 	IsOO                  bool   `json:"is_oo,omitempty"`
 	ResellingExposure     string `json:"reselling_exposure,omitempty"`
 	BasePaymentRuleID     int    `json:"base_payment_rule_id,omitempty"`
-	InventoryRelationship int    `json:"inventory_relationship,omitempty"`
+	InventoryRelationship string `json:"inventory_relationship,omitempty"`
 }
 
 type publisherResponse struct {
