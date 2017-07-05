@@ -161,15 +161,15 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 
 		// If the call failed with a NOAUTH error, attempt to reauthenticate
 		// and try the request again:
-		// if response.Obj.ErrorID == "NOAUTH" && req.URL.Path != "auth" {
-		// 	c.token = ""
-		// 	err = c.Login(c.credentials.Username, c.credentials.Password)
-		// 	if err != nil {
-		// 		return nil, errors.New("Could not reauthenticate:\n" + err.Error())
-		// 	}
-		//
-		// 	return c.do(req, v)
-		// }
+		if response != nil && req != nil && response.Obj.ErrorID == "NOAUTH" && req.URL.Path != "auth" {
+			c.token = ""
+			err = c.Login(c.credentials.Username, c.credentials.Password)
+			if err != nil {
+				return nil, errors.New("Could not reauthenticate:\n" + err.Error())
+			}
+
+			return c.do(req, v)
+		}
 
 		return nil, errors.New("client.do.checkResponse: " + err.Error())
 	}
