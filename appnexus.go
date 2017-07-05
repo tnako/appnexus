@@ -35,6 +35,7 @@ type Client struct {
 	Segments   *SegmentService
 	Publishers *PublisherService
 	Sites      *SiteService
+	Placements *PlacementService
 }
 
 // Rate contains information on the current rate limit in operation
@@ -64,6 +65,7 @@ type Response struct {
 		Count            int         `json:"count,omitempty"`
 		StartElement     int         `json:"start_element,omitempty"`
 		NumElements      int         `json:"num_elements,omitempty"`
+		Placement        Placement   `json:"placement,omitempty"`
 		Site             Site        `json:"site,omitempty"`
 		Publisher        Publisher   `json:"publisher,omitempty"`
 		Member           Member      `json:"member,omitempty"`
@@ -99,6 +101,7 @@ func NewClient(endPointURL string) (*Client, error) {
 	c.Segments = &SegmentService{client: c}
 	c.Publishers = &PublisherService{client: c}
 	c.Sites = &SiteService{client: c}
+	c.Placements = &PlacementService{client: c}
 
 	return c, nil
 }

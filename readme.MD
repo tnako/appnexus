@@ -13,6 +13,7 @@ Of the published [AppNexus API Services](https://wiki.appnexus.com/display/adnex
 * Segment Service [Docs](https://wiki.appnexus.com/display/adnexusdocumentation/Segment+Service)
 * Publisher Service [Docs](https://wiki.appnexus.com/display/api/Publisher+Service)
 * Site Service [Docs](https://wiki.appnexus.com/display/api/Site+Service)
+* Placement Service [Docs](https://wiki.appnexus.com/display/api/Placement+Service)
 
 Support for the remaining services should follow - pull requests welcome :)
 
