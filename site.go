@@ -19,7 +19,7 @@ type Site struct {
 	Code        string `json:"code,omitempty"`
 	State       string `json:"state,omitempty"`
 	Name        string `json:"name"`
-	URL         string `json:"url"`
+	URL         string `json:"url,omitempty"`
 	SupplyType  string `json:"supply_type"`
 }
 
