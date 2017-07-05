@@ -75,13 +75,13 @@ func (s *SiteService) List() ([]Site, *Response, error) {
 }
 
 // Add a new site
-func (s *SiteService) Add(item *Site, pubID int64) (*Response, error) {
+func (s *SiteService) Add(item *Site) (*Response, error) {
 
 	data := struct {
 		Site `json:"site"`
 	}{*item}
 
-	req, err := s.client.newRequest("POST", fmt.Sprintf("site?publisher_id=%d", pubID), data)
+	req, err := s.client.newRequest("POST", fmt.Sprintf("site?publisher_id=%d", item.PublisherID), data)
 
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func (s *SiteService) Add(item *Site, pubID int64) (*Response, error) {
 }
 
 // Update an existing site with new data
-func (s *SiteService) Update(item Site, pubID int64) (*Response, error) {
+func (s *SiteService) Update(item Site) (*Response, error) {
 
 	data := struct {
 		Site `json:"site"`
@@ -108,7 +108,7 @@ func (s *SiteService) Update(item Site, pubID int64) (*Response, error) {
 		return nil, errors.New("Update Site requires a site to have an ID already")
 	}
 
-	req, err := s.client.newRequest("PUT", fmt.Sprintf("site?id=%d&publisher_id=%d", item.ID, pubID), data)
+	req, err := s.client.newRequest("PUT", fmt.Sprintf("site?id=%d&publisher_id=%d", item.ID, item.PublisherID), data)
 
 	if err != nil {
 		return nil, err
