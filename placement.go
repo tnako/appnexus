@@ -76,7 +76,15 @@ func (s *PlacementService) Add(item *Placement) (*Response, error) {
 		Placement `json:"placement"`
 	}{*item}
 
-	req, err := s.client.newRequest("POST", fmt.Sprintf("placement?publisher_id=%d", item.PublisherID), data)
+	var path string
+
+	if item.SiteID > 0 {
+		path = fmt.Sprintf("placement?site_id=%d", item.SiteID)
+	} else {
+		path = fmt.Sprintf("placement?publisher_id=%d", item.PublisherID)
+	}
+
+	req, err := s.client.newRequest("POST", path, data)
 
 	if err != nil {
 		return nil, err
