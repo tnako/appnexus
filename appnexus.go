@@ -34,6 +34,7 @@ type Client struct {
 	Members    *MemberService
 	Segments   *SegmentService
 	Publishers *PublisherService
+	Sites      *SiteService
 }
 
 // Rate contains information on the current rate limit in operation
@@ -97,6 +98,7 @@ func NewClient(endPointURL string) (*Client, error) {
 	c.Members = &MemberService{client: c}
 	c.Segments = &SegmentService{client: c}
 	c.Publishers = &PublisherService{client: c}
+	c.Sites = &SiteService{client: c}
 
 	return c, nil
 }
