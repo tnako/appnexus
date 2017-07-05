@@ -18,7 +18,7 @@ type Site struct {
 	PublisherID int64  `json:"publisher_id"`
 	Code        string `json:"code,omitempty"`
 	State       string `json:"state,omitempty"`
-	Name        string `json:"name"`
+	Name        string `json:"name,omitempty"`
 	URL         string `json:"url"`
 	SupplyType  string `json:"supply_type"`
 }
