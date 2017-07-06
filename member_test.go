@@ -30,10 +30,10 @@ func TestMemberService_Get(t *testing.T) {
 	}
 
 	expected := Member{
-		ID:             1,
-		Name:           "Test Member",
-		State:          "active",
-		DefaltCurrency: "GBP",
+		ID:              1,
+		Name:            "Test Member",
+		State:           "active",
+		DefaultCurrency: "GBP",
 	}
 
 	if actual.ID != expected.ID || actual.Name != expected.Name {

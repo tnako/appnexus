@@ -23,7 +23,6 @@ type Member struct {
 	ResellingExposedOn                 string        `json:"reselling_exposed_on"`
 	LastModified                       string        `json:"last_modified"`
 	Timezone                           string        `json:"timezone"`
-	DefaultCurrency                    string        `json:"default_currency"`
 	UseInsertionOrders                 bool          `json:"use_insertion_orders"`
 	ExposeOptimizationLevers           bool          `json:"expose_optimization_levers"`
 	DefaultOptimizationVersion         int           `json:"default_optimization_version"`
@@ -33,7 +32,7 @@ type Member struct {
 	AllowNonCpmPayment                 bool          `json:"allow_non_cpm_payment"`
 	DefaultAllowCpc                    bool          `json:"default_allow_cpc"`
 	DefaultAllowCpa                    bool          `json:"default_allow_cpa"`
-	DefaltCurrency                     string        `json:"default_currency,omitempty"`
+	DefaultCurrency                    string        `json:"default_currency,omitempty"`
 	DefaultCampaignTrust               string        `json:"default_campaign_trust"`
 	DefaultCampaignAllowUnaudited      bool          `json:"default_campaign_allow_unaudited"`
 	ContractAllowsUnaudited            bool          `json:"contract_allows_unaudited"`
