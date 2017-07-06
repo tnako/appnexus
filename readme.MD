@@ -14,6 +14,7 @@ Of the published [AppNexus API Services](https://wiki.appnexus.com/display/adnex
 * Publisher Service [Docs](https://wiki.appnexus.com/display/api/Publisher+Service)
 * Site Service [Docs](https://wiki.appnexus.com/display/api/Site+Service)
 * Placement Service [Docs](https://wiki.appnexus.com/display/api/Placement+Service)
+* Deal Service [Docs](https://wiki.appnexus.com/display/api/Deal+Service)
 
 Support for the remaining services should follow - pull requests welcome :)
 
