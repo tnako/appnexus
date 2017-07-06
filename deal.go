@@ -14,12 +14,15 @@ type DealService struct {
 
 // Deal is an audience deal within the AppNexus console
 type Deal struct {
-	ID          int64  `json:"id,omitempty"`
-	PublisherID int64  `json:"publisher_id"`
-	SiteID      int64  `json:"site_id,omitempty"`
-	Code        string `json:"code"`
-	State       string `json:"state,omitempty"`
-	Name        string `json:"name"`
+	ID         int64   `json:"id,omitempty"`
+	BuyerID    int64   `json:"buyer"`
+	FloorPrice float64 `json:"floor_price"`
+	Type       int     `json:"type,omitempty"`
+	Code       string  `json:"code"`
+	Name       string  `json:"name"`
+	State      string  `json:"state,omitempty"`
+	StartDate  string  `json:"start_date,omitempty"`
+	EndDate    string  `json:"end_date,omitempty"`
 }
 
 type dealResponse struct {
