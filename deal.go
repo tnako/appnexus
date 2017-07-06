@@ -15,7 +15,7 @@ type DealService struct {
 // Deal is an audience deal within the AppNexus console
 type Deal struct {
 	ID         int64   `json:"id,omitempty"`
-	FloorPrice float64 `json:"floor_price"`
+	FloorPrice float64 `json:"floor_price,omitempty"`
 	Code       string  `json:"code"`
 	Name       string  `json:"name"`
 	State      string  `json:"state,omitempty"`
