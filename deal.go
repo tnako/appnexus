@@ -12,6 +12,16 @@ type DealService struct {
 	client *Client
 }
 
+// Type is a nested part of deal within the AppNexus console
+type Type struct {
+	ID int64 `json:"id,omitempty"`
+}
+
+// Buyer is a nested part of deal within the AppNexus console
+type Buyer struct {
+	ID int64 `json:"id,omitempty"`
+}
+
 // Deal is an audience deal within the AppNexus console
 type Deal struct {
 	ID         int64   `json:"id,omitempty"`
@@ -21,12 +31,8 @@ type Deal struct {
 	State      string  `json:"state,omitempty"`
 	StartDate  string  `json:"start_date,omitempty"`
 	EndDate    string  `json:"end_date,omitempty"`
-	Type       struct {
-		ID int64 `json:"id,omitempty"`
-	} `json:"type,omitempty"`
-	Buyer struct {
-		ID int64 `json:"id,omitempty"`
-	} `json:"buyer,omitempty"`
+	Type       *Type   `json:"type,omitempty"`
+	Buyer      *Buyer  `json:"buyer,omitempty"`
 }
 
 type dealResponse struct {
