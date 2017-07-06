@@ -17,12 +17,14 @@ type Deal struct {
 	ID         int64   `json:"id,omitempty"`
 	Type       int     `json:"type,omitempty"`
 	FloorPrice float64 `json:"floor_price"`
-	Buyer      string  `json:"buyer"`
 	Code       string  `json:"code"`
 	Name       string  `json:"name"`
 	State      string  `json:"state,omitempty"`
 	StartDate  string  `json:"start_date,omitempty"`
 	EndDate    string  `json:"end_date,omitempty"`
+	Buyer      struct {
+		ID int64 `json:"id,omitempty"`
+	} `json:"buyer,omitempty"`
 }
 
 type dealResponse struct {
