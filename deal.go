@@ -17,6 +17,11 @@ type Type struct {
 	ID int64 `json:"id,omitempty"`
 }
 
+// AuctionType is a nested part of deal within the AppNexus console
+type AuctionType struct {
+	ID int64 `json:"id,omitempty"`
+}
+
 // Buyer is a nested part of deal within the AppNexus console
 type Buyer struct {
 	ID int64 `json:"id,omitempty"`
@@ -24,15 +29,16 @@ type Buyer struct {
 
 // Deal is an audience deal within the AppNexus console
 type Deal struct {
-	ID         int64   `json:"id,omitempty"`
-	FloorPrice float64 `json:"floor_price,omitempty"`
-	Code       string  `json:"code"`
-	Name       string  `json:"name"`
-	State      string  `json:"state,omitempty"`
-	StartDate  string  `json:"start_date,omitempty"`
-	EndDate    string  `json:"end_date,omitempty"`
-	Type       *Type   `json:"type,omitempty"`
-	Buyer      *Buyer  `json:"buyer,omitempty"`
+	ID          int64        `json:"id,omitempty"`
+	FloorPrice  float64      `json:"floor_price,omitempty"`
+	Code        string       `json:"code"`
+	Name        string       `json:"name"`
+	State       string       `json:"state,omitempty"`
+	StartDate   string       `json:"start_date,omitempty"`
+	EndDate     string       `json:"end_date,omitempty"`
+	Type        *Type        `json:"type,omitempty"`
+	AuctionType *AuctionType `json:"auction_type,omitempty"`
+	Buyer       *Buyer       `json:"buyer,omitempty"`
 }
 
 type dealResponse struct {
