@@ -18,7 +18,7 @@ type Publisher struct {
 	Code                  string `json:"code,omitempty"`
 	State                 string `json:"state,omitempty"`
 	Name                  string `json:"name"`
-	IsOO                  bool   `json:"is_oo,omitempty"`
+	IsOO                  bool   `json:"is_oo"`
 	ResellingExposure     string `json:"reselling_exposure,omitempty"`
 	BasePaymentRuleID     int64  `json:"base_payment_rule_id,omitempty"`
 	InventoryRelationship string `json:"inventory_relationship,omitempty"`

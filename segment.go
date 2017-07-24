@@ -15,7 +15,7 @@ type SegmentService struct {
 // Segment is an audience segment within the AppNexus console
 type Segment struct {
 	ID              int64  `json:"id,omitempty"`
-	Active          bool   `json:"active,omitempty"`
+	Active          bool   `json:"active"`
 	Code            string `json:"code,omitempty"`
 	State           string `json:"state,omitempty"`
 	ShortName       string `json:"short_name"`
