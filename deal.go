@@ -33,7 +33,7 @@ type Deal struct {
 	FloorPrice  float64      `json:"floor_price,omitempty"`
 	Code        string       `json:"code"`
 	Name        string       `json:"name"`
-	Active      bool         `json:"active,omitempty"`
+	Active      bool         `json:"active"`
 	StartDate   string       `json:"start_date,omitempty"`
 	EndDate     string       `json:"end_date,omitempty"`
 	Type        *Type        `json:"type,omitempty"`
