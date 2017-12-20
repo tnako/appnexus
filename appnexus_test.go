@@ -10,7 +10,6 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-	"time"
 )
 
 var (
@@ -95,7 +94,6 @@ func TestCheckResponse(t *testing.T) {
 func TestWaitForRateLimit(t *testing.T) {
 
 	c, _ := NewClient("http://sand.api.appnexus.com/")
-	c.Rate.Time = time.Now()
 	c.Rate.ReadLimit = 100
 	c.Rate.ReadLimitSeconds = 2
 	c.Rate.Reads = 99

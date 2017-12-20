@@ -41,13 +41,12 @@ type Client struct {
 
 // Rate contains information on the current rate limit in operation
 type Rate struct {
-	Reads             int       `json:"reads"`
-	ReadLimit         int       `json:"read_limit"`
-	ReadLimitSeconds  int       `json:"read_limit_seconds"`
-	Writes            int       `json:"writes"`
-	WriteLimit        int       `json:"write_limit"`
-	WriteLimitSeconds int       `json:"write_limit_seconds"`
-	Time              time.Time `json:"-"`
+	Reads             int `json:"reads"`
+	ReadLimit         int `json:"read_limit"`
+	ReadLimitSeconds  int `json:"read_limit_seconds"`
+	Writes            int `json:"writes"`
+	WriteLimit        int `json:"write_limit"`
+	WriteLimitSeconds int `json:"write_limit_seconds"`
 }
 
 // Response is a AppNexus API response object
@@ -121,7 +120,7 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 	var buf io.ReadWriter
 	if body != nil {
 		buf = new(bytes.Buffer)
-		err := json.NewEncoder(buf).Encode(body)
+		err = json.NewEncoder(buf).Encode(body)
 		if err != nil {
 			return nil, err
 		}
@@ -207,10 +206,11 @@ func (c *Client) waitForRateLimit(method string) time.Duration {
 		period = c.Rate.ReadLimitSeconds
 	}
 
+	limit--
+
 	// More actions than the limit on the requested operation:
-	if actions >= limit && time.Now().Unix() < c.Rate.Time.Add(time.Duration(period)*time.Second).Unix() {
-		duration = c.Rate.Time.Add(time.Duration(period) * time.Second).Sub(time.Now())
-		time.Sleep(duration)
+	if actions >= limit {
+		time.Sleep(time.Duration(period) * time.Second)
 	}
 
 	return duration
@@ -221,7 +221,8 @@ func (c *Client) waitForRateLimit(method string) time.Duration {
 func (c *Client) checkResponse(r *http.Response, data []byte) (*Response, error) {
 	var resp *Response
 	if r.StatusCode < 200 || r.StatusCode > 299 {
-		return nil, errors.New(r.Status)
+		// ToDo: add case for code=429 to wait before next request
+		return nil, fmt.Errorf("%s | %#v", r.Status, r.Header)
 	}
 
 	if len(data) > 0 {
@@ -233,7 +234,6 @@ func (c *Client) checkResponse(r *http.Response, data []byte) (*Response, error)
 		}
 
 		c.Rate = resp.Obj.Rate
-		c.Rate.Time = time.Now()
 
 		if resp.Obj.ErrorID != "" || resp.Obj.Error != "" {
 			str := fmt.Sprintf("AppNexus:checkResponse [%s]: %s", resp.Obj.ErrorID, resp.Obj.Error)
