@@ -210,7 +210,8 @@ func (c *Client) waitForRateLimit(method string) time.Duration {
 
 	// More actions than the limit on the requested operation:
 	if actions >= limit {
-		time.Sleep(time.Duration(period) * time.Second)
+		duration = time.Duration(period) * time.Second
+		time.Sleep(duration)
 	}
 
 	return duration

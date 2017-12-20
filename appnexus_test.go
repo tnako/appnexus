@@ -96,7 +96,7 @@ func TestWaitForRateLimit(t *testing.T) {
 	c, _ := NewClient("http://sand.api.appnexus.com/")
 	c.Rate.ReadLimit = 100
 	c.Rate.ReadLimitSeconds = 2
-	c.Rate.Reads = 99
+	c.Rate.Reads = 98
 	c.Rate.WriteLimit = 100
 	c.Rate.WriteLimitSeconds = 2
 	c.Rate.Writes = 0
