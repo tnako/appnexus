@@ -10,12 +10,14 @@ import (
 	"reflect"
 	"strings"
 	"testing"
+	"time"
 )
 
 var (
 	mux    *http.ServeMux
 	client *Client
 	server *httptest.Server
+	waiter bool
 )
 
 // setup sets up a test HTTP server along with a AppNexus.Client that is
@@ -24,10 +26,12 @@ var (
 func setup() {
 	// test server
 	mux = http.NewServeMux()
+	mux.Handle("/foo1", http.HandlerFunc(limitResponseHandler))
 	server = httptest.NewServer(mux)
 
 	// appnexus client configured to use test server
 	client, _ = NewClient(server.URL)
+	waiter = false
 }
 
 // teardown closes the test HTTP server.
@@ -120,5 +124,36 @@ func TestWaitForRateLimit(t *testing.T) {
 
 	if actual, expected := fmt.Sprintf("%.0f", c.waitForRateLimit("DELETE").Seconds()), "0"; actual != expected {
 		t.Errorf("Waited %v for write rate limit, expected %v", actual, expected)
+	}
+}
+
+func limitResponseHandler(w http.ResponseWriter, r *http.Request) {
+	if waiter {
+		w.Write([]byte("{}"))
+		return
+	}
+
+	waiter = true
+	w.Header().Set("Retry-After", "1")
+	w.WriteHeader(http.StatusTooManyRequests)
+}
+
+func TestLimitResponse(t *testing.T) {
+	setup()
+	defer teardown()
+
+	req, err := client.newRequest("GET", "foo1", nil)
+	if err != nil {
+		t.Errorf("Cant prepare request, error: %v", err)
+	}
+
+	start := time.Now()
+	_, err = client.do(req, nil)
+	if err != nil {
+		t.Errorf("Cant send request, error: %v", err)
+	}
+	elapsed := time.Since(start)
+	if elapsed.Seconds() < 1 {
+		t.Errorf("retry pause didnt work")
 	}
 }

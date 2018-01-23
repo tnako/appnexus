@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/google/go-querystring/query"
@@ -154,6 +155,27 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 		return nil, errors.New("client.do.do: " + err.Error())
 	}
 
+	if resp.StatusCode == 429 {
+		// pause and retry if read/write limit exceeded
+		value := resp.Header.Get("Retry-After")
+		if value != "" {
+			retr, er := strconv.Atoi(value)
+			if er != nil {
+				return nil, errors.New("client.do.retry: " + er.Error())
+			}
+
+			if retr <= 0 || retr > 600 {
+				retr = 200
+			}
+			time.Sleep(time.Duration(retr) * time.Second)
+
+			resp, err = c.client.Do(req)
+			if err != nil {
+				return nil, errors.New("client.do.do: " + err.Error())
+			}
+		}
+	}
+
 	defer resp.Body.Close()
 
 	data, err := ioutil.ReadAll(resp.Body)
@@ -222,7 +244,6 @@ func (c *Client) waitForRateLimit(method string) time.Duration {
 func (c *Client) checkResponse(r *http.Response, data []byte) (*Response, error) {
 	var resp *Response
 	if r.StatusCode < 200 || r.StatusCode > 299 {
-		// ToDo: add case for code=429 to wait before next request
 		return nil, fmt.Errorf("%s | %#v", r.Status, r.Header)
 	}
 
