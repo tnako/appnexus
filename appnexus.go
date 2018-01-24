@@ -150,6 +150,17 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 
 	_ = c.waitForRateLimit(req.Method)
 
+	var body []byte
+	var err error
+
+	if req.Body != nil {
+		body, err = ioutil.ReadAll(req.Body)
+		if err != nil {
+			return nil, errors.New("client.do.body: " + err.Error())
+		}
+		req.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+	}
+
 	resp, err := c.client.Do(req)
 	if err != nil {
 		return nil, errors.New("client.do.do: " + err.Error())
@@ -168,6 +179,10 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 				retr = 200
 			}
 			time.Sleep(time.Duration(retr) * time.Second)
+
+			if body != nil {
+				req.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+			}
 
 			resp, err = c.client.Do(req)
 			if err != nil {

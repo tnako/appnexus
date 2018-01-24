@@ -129,7 +129,6 @@ func TestWaitForRateLimit(t *testing.T) {
 
 func limitResponseHandler(w http.ResponseWriter, r *http.Request) {
 	if waiter {
-		w.Write([]byte("{}"))
 		return
 	}
 
@@ -142,7 +141,11 @@ func TestLimitResponse(t *testing.T) {
 	setup()
 	defer teardown()
 
-	req, err := client.newRequest("GET", "foo1", nil)
+	data := struct {
+		Strs string `json:"strs"`
+	}{}
+
+	req, err := client.newRequest("GET", "foo1", data)
 	if err != nil {
 		t.Errorf("Cant prepare request, error: %v", err)
 	}
