@@ -31,6 +31,7 @@ type Client struct {
 	token       string
 	credentials credentials
 	MemberID    int
+	iterations  int
 
 	Members    *MemberService
 	Segments   *SegmentService
@@ -111,6 +112,8 @@ func NewClient(endPointURL string) (*Client, error) {
 
 // NewRequest creates an API request using a relative URL
 func (c *Client) newRequest(method, path string, body interface{}) (*http.Request, error) {
+	c.iterations = 0
+
 	rel, err := url.Parse(path)
 	if err != nil {
 		return nil, err
@@ -148,6 +151,11 @@ func (c *Client) newRequest(method, path string, body interface{}) (*http.Reques
 // first decode it.
 func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 
+	c.iterations++
+	if c.iterations >= 10 {
+		return nil, errors.New("client.do.do: Max retry iterations exceed 10")
+	}
+
 	_ = c.waitForRateLimit(req.Method)
 
 	var body []byte
@@ -178,16 +186,14 @@ func (c *Client) do(req *http.Request, v interface{}) (*Response, error) {
 			if retr <= 0 || retr > 600 {
 				retr = 200
 			}
+			retr++ // APN glitch
 			time.Sleep(time.Duration(retr) * time.Second)
 
 			if body != nil {
 				req.Body = ioutil.NopCloser(bytes.NewBuffer(body))
 			}
 
-			resp, err = c.client.Do(req)
-			if err != nil {
-				return nil, errors.New("client.do.do: " + err.Error())
-			}
+			return c.do(req, v)
 		}
 	}
 
